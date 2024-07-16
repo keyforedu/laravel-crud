@@ -169,5 +169,7 @@ class PemeriksaanController extends Controller
      */
     public function destroy(Pemeriksaan $pemeriksaan)
     {
+        $pemeriksaan->delete();
+        return redirect()->route('pemeriksaan.index')->with('success', 'Hapus Data Pemeriksaan berhasil');
     }
 }
