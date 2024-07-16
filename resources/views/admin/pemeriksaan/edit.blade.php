@@ -18,8 +18,9 @@
                             <input type="hidden" name="no_transaksi_pemeriksaan" value="">
                             <select id="pasien" name="pasien" class="form-control @error('pasien') is-invalid @enderror" required>
                                 <option value="" selected>- Pilih -</option>
-                                
-                                <option value="" {{ old('pasien') == '' ? 'selected':''  }}></option>
+                                @foreach ($datapasien as $dp)
+                                <option value="{{ $dp->id }}" {{ old('pasien')?? $pemeriksaan->idPasien == $dp->id ? 'selected':''  }}>{{ $dp->nama }}</option>
+                                @endforeach
                                 
                             </select>
 
@@ -32,13 +33,13 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="email">Dokter</label>
-                            <label for="pasien">Dokter</label>
-                            <select id="pasien" name="dokter" class="form-control @error('pasien') is-invalid @enderror" required>
+                            <label for="dokter">Dokter</label>
+                            <label for="dokter">Dokter</label>
+                            <select id="dokter" name="dokter" class="form-control @error('dokter') is-invalid @enderror" required>
                                 <option value="" selected>- Pilih -</option>
-                                
-                                <option value="" {{ old('pasien') =='' ? 'selected':''  }}></option>
-                                
+                                @foreach($datadokter as $dd)
+                                <option value="{{ $dd->id }}" {{ old('dokter')?? $pemeriksaan->idDokter == $dd->id ? 'selected':''  }}>{{ $dd->nama }}</option>
+                                @endforeach
                             </select>
                         
 
@@ -51,9 +52,9 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="password">Tanggal Periksa</label>
+                            <label for="tanggalPeriksa">Tanggal Periksa</label>
                             <input type="date" class="form-control @error('tanggalPeriksa') is-invalid @enderror"
-                                   name="tanggalPeriksa" value="{{ old('tanggalPeriksa') }}" required>
+                                   name="tanggalPeriksa" value="{{ old('tanggalPeriksa', $pemeriksaan->tanggalPeriksa) }}" required>
 
                             <!-- error message untuk tanggal -->
                             @error('tanggalPeriksa')
@@ -65,7 +66,7 @@
 
                         <div class="mb-3">
                             <label for="password">Keluhan</label>
-                            <textarea name="keluhan" id="keluhan" class="form-control @error('keluhan') is-invalid @enderror" required>{{ old('keluhan') }}</textarea>
+                            <textarea name="keluhan" id="keluhan" class="form-control @error('keluhan') is-invalid @enderror" required>{{ old('keluhan', $pemeriksaan->keluhan) }}</textarea>
 
                             <!-- error message untuk keluhan -->
                             @error('keluhan')

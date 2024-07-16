@@ -101,7 +101,10 @@ class PemeriksaanController extends Controller
      */
     public function edit(Pemeriksaan $pemeriksaan)
     {
-        //
+        // dd($pemeriksaan);
+        $datapasien = PasienModel::all();
+        $datadokter = DokterModel::all();
+        return view('admin.pemeriksaan.edit', compact('pemeriksaan', 'datapasien', 'datadokter'));
     }
 
     /**
