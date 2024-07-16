@@ -113,6 +113,55 @@ class PemeriksaanController extends Controller
     public function update(Request $request, Pemeriksaan $pemeriksaan)
     {
         //
+        $rules = [
+            "pasien" => 'required',
+            "dokter" => 'required',
+            "tanggalPeriksa" => 'required|date',
+            "keluhan" => 'required|string|min:3|max:255',
+            "fileLampiran" => 'required|mimes:jpg,png,jpeg,gif|max:2048'
+        ];
+        $message=[
+            'required' => ':attribute wajib diisi',
+            'min' => ':attribute minimal berisi :min karakter',
+            'max' => ':attribute maksimal berisi :max karakter',
+            'fileLampiran.mimes' => 'file harus berupa gambar dengan format jpg, png, jpeg, gif'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $message);
+
+        if($validator->fails()){
+            return redirect()->back()
+            ->withInput()
+            ->withErrors($validator)
+            ->with('danger', 'Pastikan semua field diisi');
+        }else{
+            // dd($request);
+            // $noPemeriksaan = 'REG-'.date('Ymd').'-'.Str::upper(Str::random(6));
+
+            $fileLampiran = $request->file('fileLampiran');
+            $namaFileLampiran = time().".".$fileLampiran->getClientOriginalExtension();
+            //cara memindahkan file ke server
+            $pathFileLampiran = Storage::disk('public')->putFileAs('fileLampiran', $fileLampiran, $namaFileLampiran);
+            //Storage//App//Public//fileLampiran
+
+            $pemeriksaan->idPasien = $request->pasien;
+            $pemeriksaan->idDokter = $request->dokter;
+            $pemeriksaan->tanggalPeriksa = $request->tanggalPeriksa;
+            $pemeriksaan->keluhan = $request->keluhan;
+            $pemeriksaan->fileLampiran = $namaFileLampiran;
+            $pemeriksaan->save();
+
+            // $simpanPemeriksaan = Pemeriksaan::create([
+            //     'no_transaksi_pemeriksaan' => $noPemeriksaan,
+            //     'idDokter' => $request->dokter,
+            //     'idPasien' =>$request->pasien,
+            //     'tanggalPeriksa' => $request->tanggalPeriksa,
+            //     'fileLampiran' => $namaFileLampiran,
+            //     'keluhan' => $request->keluhan
+            // ]);
+
+            return redirect()->route('pemeriksaan.index')->with('success', 'Edit Data Pemeriksaan berhasil');
+        }
     }
 
     /**
@@ -120,6 +169,5 @@ class PemeriksaanController extends Controller
      */
     public function destroy(Pemeriksaan $pemeriksaan)
     {
-        //
     }
 }

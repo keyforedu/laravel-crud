@@ -9,7 +9,7 @@
             @include('partial.dangeralert')
             
                 <div class="card-body">
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('pemeriksaan.update', $pemeriksaan) }}" method="POST" enctype="multipart/form-data">
                         <!-- token form -->
                         @csrf
                         @method('PUT')
