@@ -9,7 +9,7 @@
             <div class="card border-0 shadow rounded">
                 {{-- {{ dd($datapemeriksaan) }} --}}
                 <div class="card-body">
-                    <a href="{{ route('pemeriksaan.create') }}" class="btn btn-primary">Pemeriksaan Baru</a>
+                    <a href="{{ route('pemeriksaan.create') }}" class="btn btn-primary">{{ __('pemeriksaan_baru_btn') }}</a>
                     <table class="table table-bordered text-center mt-3">
                         <thead>
                         <tr>
@@ -32,7 +32,7 @@
                                     <td> {{ $dp->spesialisasi }}</td>
                                     <td> {{ $dp->tanggalPeriksa }}</td>
                                     <td> {{ $dp->keluhan }}</td>
-                                    <td><a href="" class="btn btn-sm btn-primary"> {{ $dp->fileLampiran }}</a></td>
+                                    <td><a href="{{ route('admin.file.download', $dp->fileLampiran) }}" class="btn btn-sm btn-primary"> {{ $dp->fileLampiran }}</a></td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Aksi">
                                             <a href="{{ route('pemeriksaan.edit', $dp->id) }}" class="btn btn-sm btn-primary">EDIT</a>

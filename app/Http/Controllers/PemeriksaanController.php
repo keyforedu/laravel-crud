@@ -172,4 +172,15 @@ class PemeriksaanController extends Controller
         $pemeriksaan->delete();
         return redirect()->route('pemeriksaan.index')->with('success', 'Hapus Data Pemeriksaan berhasil');
     }
+
+    public function download($file){
+        $filepath = 'public/fileLampiran/'.$file;
+        if(Storage::exists($filepath)){
+            //download jika ada filenya
+            return Storage::download($filepath);
+        } else {
+            return redirect()->back()->with('error', 'File tidak ditemukan');
+        }
+
+    }
 }
