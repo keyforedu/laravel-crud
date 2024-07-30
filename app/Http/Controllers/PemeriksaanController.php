@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App;
 
 class PemeriksaanController extends Controller
 {
@@ -18,6 +19,7 @@ class PemeriksaanController extends Controller
     public function index()
     {
         //
+        App::setLocale('idn');
         $datapemeriksaan = Pemeriksaan::join('pasien', 'pasien.id', '=', 'pemeriksaan.idPasien')
                             ->join('dokter', 'dokter.id', '=', 'pemeriksaan.idDokter')
                             ->select(['pemeriksaan.*', 'pasien.nama as namaPasien', 'dokter.nama as namaDokter', 'dokter.spesialisasi'])
@@ -176,7 +178,6 @@ class PemeriksaanController extends Controller
     public function download($file){
         $filepath = 'public/fileLampiran/'.$file;
         if(Storage::exists($filepath)){
-            //download jika ada filenya
             return Storage::download($filepath);
         } else {
             return redirect()->back()->with('error', 'File tidak ditemukan');

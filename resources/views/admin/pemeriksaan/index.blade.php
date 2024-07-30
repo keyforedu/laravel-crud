@@ -9,18 +9,18 @@
             <div class="card border-0 shadow rounded">
                 {{-- {{ dd($datapemeriksaan) }} --}}
                 <div class="card-body">
-                    <a href="{{ route('pemeriksaan.create') }}" class="btn btn-primary">{{ __('pemeriksaan_baru_btn') }}</a>
+                    <a href="{{ route('pemeriksaan.create') }}" class="btn btn-primary">@lang('pemeriksaan.pemeriksaan_baru_btn')</a>
                     <table class="table table-bordered text-center mt-3">
                         <thead>
                         <tr>
-                            <th scope="col">No Pemeriksaan</th>
-                            <th scope="col">Nama Pasien</th>
-                            <th scope="col">Nama Dokter</th>
-                            <th scope="col">Spesialisasi</th>
-                            <th scope="col">Tanggal</th>
-                            <th scope="col">Keluhan</th>
-                            <th scope="col">File</th>
-                            <th scope="col">Action</th>
+                            <th scope="col">@lang('pemeriksaan.list_pemeriksaan_header.no_exam')</th>
+                            <th scope="col">@lang('pemeriksaan.list_pemeriksaan_header.nama_pasien')</th>
+                            <th scope="col">@lang('pemeriksaan.list_pemeriksaan_header.nama_dokter')</th>
+                            <th scope="col">@lang('pemeriksaan.list_pemeriksaan_header.tanggal')</th>
+                            <th scope="col">@lang('pemeriksaan.list_pemeriksaan_header.spesialisasi')</th>
+                            <th scope="col">@lang('pemeriksaan.list_pemeriksaan_header.tanggal')</th>
+                            <th scope="col">@lang('pemeriksaan.list_pemeriksaan_header.keluhan')</th>
+                            <th scope="col">@lang('pemeriksaan.list_pemeriksaan_header.aksi')</th>
                         </tr>
                         </thead>
                         <tbody>
