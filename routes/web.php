@@ -1,15 +1,20 @@
 <?php
 
-use App\Http\Controllers\PemeriksaanController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-
 Route::get('/', function () {
-    return view('master');
+    return view('welcome');
 });
 
-Route::resource('admin/user', \App\Http\Controllers\UserController::class);
-Route::resource('admin/pemeriksaan', PemeriksaanController::class);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('admin/pemeriksaan/download/{file}', [PemeriksaanController::class, 'download'])->name('admin.file.download');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
+require __DIR__.'/auth.php';
