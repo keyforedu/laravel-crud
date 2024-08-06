@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PemeriksaanController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,4 +18,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware('auth')->group(function () {
+    Route::resource('admin/user', UserController::class);
+    Route::resource('admin/pemeriksaan', PemeriksaanController::class);
+    Route::get('admin/pemeriksaan/download/{file}', [PemeriksaanController::class, 'download'])-> name('admin.file.download');
+});
+
+Route::get('cekumur', function () {
+    return "Umur anda >18 tahun";
+})->middleware('cekumur');
+
 require __DIR__.'/auth.php';
+
+
